@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Financeiro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      margin: 0;
+      padding: 15px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: #111827;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    label {
+      font-size: 14px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #22c55e;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .danger {
+      background: #ef4444;
+      margin-top: 10px;
+    }
+    .result {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📊 Dashboard Financeiro</h1>
+
+<div class="card">
+  <label>Entrada do dia (R$)</label>
+  <input type="number" id="entrada">
+  
+  <label>Gastos do dia (R$)</label>
+  <input type="number" id="gastos">
+
+  <button onclick="calcularDia()">Calcular</button>
+  <div class="result" id="resultadoDia"></div>
+</div>
+
+<div class="card">
+  <h2>🎲 Apostas</h2>
+  <label>Lucro / Prejuízo (R$)</label>
+  <input type="number" id="aposta">
+
+  <button onclick="calcularAposta()">Registrar</button>
+  <div class="result" id="resultadoAposta"></div>
+</div>
+
+<div class="card">
+  <h2>⚠️ Alerta Diário</h2>
+  <p>Meta mínima: <strong>R$ 400</strong></p>
+  <div class="result" id="alerta"></div>
+</div>
+
+<script>
+  function calcularDia() {
+    let entrada = Number(document.getElementById('entrada').value);
+    let gastos = Number(document.getElementById('gastos').value);
+    let total = entrada - gastos;
+
+    document.getElementById('resultadoDia').innerText =
+      'Resultado do dia: R$ ' + total.toFixed(2);
+
+    if (total < 400) {
+      document.getElementById('alerta').innerText =
+        '🚨 ALERTA FORTE: abaixo da meta diária!';
+    } else {
+      document.getElementById('alerta').innerText =
+        '✅ Meta diária atingida!';
+    }
+  }
+
+  function calcularAposta() {
+    let aposta = Number(document.getElementById('aposta').value);
+    let texto = aposta >= 0 ? 'Lucro' : 'Prejuízo';
+
+    document.getElementById('resultadoAposta').innerText =
+      texto + ': R$ ' + aposta.toFixed(2);
+  }
+</script>
+
+</body>
+</html>
